@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Main.cs" type="Script" id=1]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 288.0
+margin_bottom = -248.0
+custom_constants/separation = 20
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Version Selector" type="OptionButton" parent="HBoxContainer"]
+margin_left = 413.0
+margin_right = 533.0
+margin_bottom = 64.0
+text = "Godot Version"
+
+[node name="Launch Version" type="Button" parent="HBoxContainer"]
+margin_left = 553.0
+margin_right = 610.0
+margin_bottom = 64.0
+text = "Launch"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Confirm Download" type="ConfirmationDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -35.0
+margin_right = 100.0
+margin_bottom = 35.0
+window_title = "Download Godot"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Version Request" type="HTTPRequest" parent="."]
