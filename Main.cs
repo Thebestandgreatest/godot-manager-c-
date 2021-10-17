@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections;
+using System.Net;
 using File = Godot.File;
 using Octokit;
 
@@ -41,8 +42,19 @@ public abstract class Main : Control
 		dropDown.SetItemDisabled(dropDown.GetItemCount() - 1, true);
 
 		GD.Print("Requesting Releases");
+		GetGodotReleases();
+	}
 
-		var client = new GitHubClient(new ProductHeaderValue("Godot-Version-Manager"));
+	private static async void GetGodotReleases()
+	{
+		ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 		
+		var client = new GitHubClient(new ProductHeaderValue("Godot-Version-Manager"));
+		var releases = await client.Repository.Release.GetAll("godotengine", "godot");
+		GD.Print("Request Completed");
+		 foreach (var i in releases)
+		 {
+		 	GD.Print(i.Name);
+		 }
 	}
 }
