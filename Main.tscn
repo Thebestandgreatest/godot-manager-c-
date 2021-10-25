@@ -45,6 +45,7 @@ margin_left = -100.0
 margin_top = -35.0
 margin_right = 100.0
 margin_bottom = 35.0
+rect_min_size = Vector2( 150, 52.5 )
 window_title = "Download Godot"
 __meta__ = {
 "_edit_use_anchors_": false

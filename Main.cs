@@ -8,8 +8,9 @@ using Octokit;
 // ReSharper disable once ClassNeverInstantiated.Global
 public abstract class Main : Control
 {
-	private const string ReleasesUrl = "https://api.github.com/repos/godotengine/godot/releases";
 	private static readonly string SavePath = ProjectSettings.GlobalizePath("user://downloadedVersions.txt");
+	private static readonly string TokenPath = ProjectSettings.GlobalizePath("user://tokenPath.txt");
+	private static string GithubToken;
 
 	public override void _Ready()
 	{
@@ -26,6 +27,11 @@ public abstract class Main : Control
 		{
 			versionList.Add(file.GetLine());
 		}
+		
+		file.Close();
+		file.Open(TokenPath, File.ModeFlags.Read);
+		GithubToken = file.GetAsText();
+		
 
 		if (!versionList[0].Equals(""))
 		{
@@ -47,14 +53,9 @@ public abstract class Main : Control
 
 	private static async void GetGodotReleases()
 	{
-		ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-		
-		var client = new GitHubClient(new ProductHeaderValue("Godot-Version-Manager"));
-		var releases = await client.Repository.Release.GetAll("godotengine", "godot");
-		GD.Print("Request Completed");
-		 foreach (var i in releases)
-		 {
-		 	GD.Print(i.Name);
-		 }
+		var client = new GitHubClient(new ProductHeaderValue("GodotVersionManager"))
+		{
+			Credentials = new Credentials(GithubToken)
+		};
 	}
 }
